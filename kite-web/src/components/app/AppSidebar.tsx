@@ -9,6 +9,7 @@ import AppSidebarAppSwitcher from "./AppSidebarAppSwitcher";
 import AppSidebarExternalNav from "./AppSidebarExternalNav";
 import AppSidebarMainNav from "./AppSidebarMainNav";
 import AppSidebarStudioNav from "./AppSidebarStudioNav";
+import AppSidebarCommunityNav from "./AppSidebarCommunityNav";
 import AppSidebarUserNav from "./AppSidebarUserNav";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -20,6 +21,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarContent>
         <AppSidebarMainNav />
         <AppSidebarStudioNav />
+        <AppSidebarCommunityNav />
         <AppSidebarExternalNav />
       </SidebarContent>
       <SidebarFooter>
