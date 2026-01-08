@@ -170,19 +170,12 @@ go build --tags  "embedweb"
 go build
 ```
 
-## High Level Progress
+## Changes
 
-- [x] Slash Commands
-  - [x] Sub Commands
-  - [x] Basic Placeholders
-  - [x] Advanced Placeholders
-- [x] Message Templates (MVP)
-  - [x] Embeds
-  - [x] Attachments
-  - [x] Interactive Components
-  - [x] Basic placeholders
-  - [x] Advanced Placeholders
-- [x] Event Listeners
-- [x] Stored Variables
-  - [x] Basic infrastrcuture
-  - [x] Connect variables to commands
+- [ ] Marketplace
+- [ ] JSON Sharing
+- [ ] API JSON
+- [ ] Button Variables
+- [ ] Color Variables
+- [ ] Footer Variables
+- [ ] Current Time Timestamp
