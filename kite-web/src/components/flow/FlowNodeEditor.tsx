@@ -945,6 +945,13 @@ function HttpRequestDataInput({ data, updateData, errors }: InputProps) {
           <div>
             <div className="flex items-center justify-between mb-2">
               <div className="font-medium text-foreground">JSON Body</div>
+              <MessageJSONDialog>
+          <MessageControlsButton
+            icon={CodeIcon}
+            label="JSON Code"
+            onClick={() => {}}
+          />
+        </MessageJSONDialog>
               <Switch
                 checked={!!data.http_request_data?.body_json}
                 onCheckedChange={(checked) =>
