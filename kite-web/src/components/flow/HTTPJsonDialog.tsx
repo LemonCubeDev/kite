@@ -19,7 +19,7 @@ import { parseMessageData } from "@/lib/message/schemaRestore";
 import { toast } from "sonner";
 import { useHookedTheme } from "@/lib/hooks/theme";
 
-export default function MessageJSONDialog({
+export default function HTTPJSONDialog({
   children,
 }: {
   children: ReactNode;
