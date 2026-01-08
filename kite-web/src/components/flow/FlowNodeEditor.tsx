@@ -67,6 +67,8 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 import FlowPlaceholderExplorer from "./FlowPlaceholderExplorer";
 import env from "@/lib/env/client";
 import { ScrollArea } from "../ui/scroll-area";
+import HTTPJSONDialog from "./HTTPJSONDialog";
+import HTTPControlsButton from "./HTTPControlsButton";
 
 interface Props {
   nodeId: string;
@@ -945,13 +947,13 @@ function HttpRequestDataInput({ data, updateData, errors }: InputProps) {
           <div>
             <div className="flex items-center justify-between mb-2">
               <div className="font-medium text-foreground">JSON Body</div>
-              <MessageJSONDialog>
-          <MessageControlsButton
+              <HTTPJSONDialog>
+          <HTTPControlsButton
             icon={CodeIcon}
             label="JSON Code"
             onClick={() => {}}
           />
-        </MessageJSONDialog>
+        </HTTPJSONDialog>
               <Switch
                 checked={!!data.http_request_data?.body_json}
                 onCheckedChange={(checked) =>
