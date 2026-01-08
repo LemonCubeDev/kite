@@ -1,6 +1,0 @@
-[discord]
-client_id = "1458582933588803727" # Your Discord client ID used for Oauth2
-client_secret = "RX0JBp2oDHmdOrhxjuctcps0IXbdMViM" # Your Discord client secret used for Oauth2
-
-[encryption]
-token_encryption_key = "5479fdb6b8736c8f471f34a045040174a6bd2523fbe1f917b3e0fa358f8194ce" # HEX encoded AES key for encrypting Discord tokens
