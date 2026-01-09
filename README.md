@@ -4,7 +4,7 @@
 [![Docker image](https://github.com/merlinfuchs/kite/actions/workflows/docker-push.yaml/badge.svg)](https://hub.docker.com/r/merlintor/kite)
 
 [![Release](https://img.shields.io/github/v/release/merlinfuchs/kite)](https://github.com/merlinfuchs/kite/releases/latest)
-[![AGPL-3.0 License](https://img.shields.io/github/license/merlinfuchs/kite)](LICENSE)
+[![MIT License](https://img.shields.io/github/license/merlinfuchs/kite)](LICENSE)
 [![Discord Server](https://img.shields.io/discord/845800518458540083)](https://discord.gg/rNd9jWHnXh)
 
 Make your own Discord Bot with Kite for free without a single line of code. With support for slash commands, buttons, events,and more.
@@ -23,20 +23,39 @@ To run Kite you will also need to run a [Postgres](https://www.postgresql.org/) 
 
 ### Configure the server
 
-To configure the server you can create a file called `kite.toml` with the following fields:
+**IMPORTANT: You must configure your credentials before running Kite!**
 
-```toml
-[discord]
-client_id = "..." # Your Discord client ID used for Oauth2
-client_secret = "..." # Your Discord client secret used for Oauth2
+1. **Copy the example configuration files:**
+   ```bash
+   cp kite.toml.example kite.toml
+   cp kite-service/.env.example kite-service/.env
+   ```
 
-[encryption]
-token_encryption_key = "..." # HEX encoded AES key for encrypting Discord tokens
+2. **Edit `kite.toml` with your credentials:**
+   - Set your Discord application **Client ID**
+   - Set your Discord application **Client Secret**
+   - Set your generated **encryption key**
+
+   ```toml
+   [discord]
+   client_id = "YOUR_DISCORD_CLIENT_ID"
+   client_secret = "YOUR_DISCORD_CLIENT_SECRET"
+
+   [encryption]
+   token_encryption_key = "YOUR_GENERATED_ENCRYPTION_KEY"
+   ```
+
+3. **Edit `kite-service/.env` if running locally** (not needed for Docker):
+   - Fill in the same Discord credentials
+   - Configure local database settings if needed
+
+**To generate an encryption key:**
+```bash
+openssl enc -aes-256-cbc -k secret -P -md sha1
 ```
+Copy the **key** value (64 character hex string).
 
-To generate an encryption key for tokens you can use `openssl enc -aes-256-cbc -k secret -P -md sha1`.
-
-You can also set the config values using environment variables. For example `KITE_DISCORD__CLIENT_ID` will set the discord client id.
+You can also set config values using environment variables. For example `KITE_DISCORD__CLIENT_ID` will set the discord client id.
 
 ### Using Docker (docker-compose)
 
@@ -61,18 +80,6 @@ services:
       timeout: 30s
       retries: 3
 
-  minio:
-    image: quay.io/minio/minio
-    command: server --console-address ":9001" /data
-    ports:
-      - "9000:9000"
-      - "9001:9001"
-    environment:
-      MINIO_ROOT_USER: kite
-      MINIO_ROOT_PASSWORD: 1234567890
-    volumes:
-      - kite-local-minio:/data
-
   kite:
     image: merlintor/kite:latest
     restart: always
@@ -83,10 +90,6 @@ services:
       - KITE_DATABASE__POSTGRES__HOST=postgres
       - KITE_DATABASE__POSTGRES__USER=postgres
       - KITE_DATABASE__POSTGRES__DB_NAME=kite
-      - KITE_DATABASE__S3__ENDPOINT=minio:9000
-      - KITE_DATABASE__S3__ACCESS_KEY_ID=kite
-      - KITE_DATABASE__S3__SECRET_ACCESS_KEY=1234567890
-      - KITE_DATABASE__S3__SECURE=false
       - KITE_APP__PUBLIC_BASE_URL=http://localhost:8080
       - KITE_API__PUBLIC_BASE_URL=http://localhost:8080
     volumes:
@@ -97,7 +100,6 @@ services:
 
 volumes:
   kite-local-postgres:
-  kite-local-minio:
 ```
 
 Run the file using `docker-compose up`. It will automatically mount the `kite.toml` file into the container. You should not configure postgres in your config file as it's using the postgres instance from the container.
